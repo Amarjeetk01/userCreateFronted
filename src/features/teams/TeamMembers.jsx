@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 import UserCard from "../../components/UserCard";
-import { fetchTeamByIdAsync, getTeam, getTeamError, getTeamStatus, totalTeamPages } from "./teamSlice";
+import { fetchTeamByIdAsync, getTeam,  getTeamStatus, totalTeamPages } from "./teamSlice";
 import { getAuth, } from "../../auth/authSlice";
 import BackdropComponent from "../../components/Backdrop";
 
@@ -20,7 +20,6 @@ const TeamMembers = () => {
   const team = useSelector(getTeam);
   const auth = useSelector(getAuth);
   const teamStatus = useSelector(getTeamStatus);
-  const teamErrorMessage = useSelector(getTeamError);
   
 
   useEffect(() => {
@@ -38,11 +37,6 @@ const TeamMembers = () => {
    
   }, [dispatch]);
 
-  useEffect(()=>{
-    if(teamStatus==="idle" && teamErrorMessage){
-      toast.error(teamErrorMessage)
-    }
-  })
 
   return (
     <>

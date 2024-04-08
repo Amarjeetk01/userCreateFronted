@@ -51,6 +51,9 @@ export const teamSlice = createSlice({
         state.status = "idle";
         state.team = action.payload.teamMembers;
         state.totalTeamPages = action.payload.totalPages;
+      }).addCase(fetchTeamByIdAsync.rejected, (state, action) => {
+        state.status = "idle";
+        state.error = action.error.message;
       })
       .addCase(addToTeamAsync.pending, (state) => {
         state.status = "loading";

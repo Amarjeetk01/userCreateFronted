@@ -159,7 +159,7 @@ const Header = () => {
           )}
         </Menu>
       </AppBar>
-      <ClickAwayListener onClickAway={handleClickOpen}>
+      {/* <ClickAwayListener onClickAway={()=>setOpen(false)}> */}
         <Box
           className={`h-auto w-screen m-2 p-2 z-50 bg-white fixed ${
             !open ? "hidden" : ""
@@ -225,7 +225,7 @@ const Header = () => {
             </Link>
           )}
         </Box>
-      </ClickAwayListener>
+      {/* </ClickAwayListener> */}
     </>
   );
 };
