@@ -37,7 +37,7 @@ const Signin = () => {
   useEffect(() => {
     if (showToast && !loading && !auth && error) {
       toast.error(error);
-    } else if (auth && status) {
+    } else if (auth && status==='success') {
       toast.success(status);
       navigate(`/`);
     }

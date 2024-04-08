@@ -12,6 +12,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { fetchAuthAsync, isAuthLoading } from "./auth/authSlice";
 import Layout from "./components/Layout";
 import BackdropComponent from "./components/Backdrop";
+import Protected from "./components/Protected";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,8 +30,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout><UserLists /></Layout>} />
           <Route path="/user/:id" element={<Layout><UserDetails /></Layout>} />
-          <Route path="/team" element={<Layout><TeamMembers /></Layout>} />
-          <Route path="/action" element={<Layout><Action /></Layout>} />
+          <Route path="/team" element={<Protected><Layout><TeamMembers /></Layout></Protected>} />
+          <Route path="/action" element={<Protected><Layout><Action /></Layout></Protected>} />
+          <Route path="/login" element={<Signin />} />
           <Route path="*" element={<Signin />} />
           <Route path="/register" element={<Signup />} />
         </Routes>

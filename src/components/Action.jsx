@@ -24,8 +24,8 @@ import {
   userSliceError,
   usersStatus,
 } from "../features/users/userSlice";
-const cloudName = import.meta.env.VITE_SOME_KEY;
-const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
+const cloudName =  import.meta.env.VITE_REACT_CLOUD_NAME;
+const upload_preset =  import.meta.env.VITE_REACT_UPLOAD_PRESET;
 
 
 const Profile = () => {
