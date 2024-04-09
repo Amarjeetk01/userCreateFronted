@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Home, Login, Pets, LibraryBooks, Logout } from "@mui/icons-material";
+import { Home, Login, Pets, LibraryBooks, Logout, PeopleAlt } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import {
   AppBar,
@@ -42,14 +42,15 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const users = useSelector(getUser);
   const isAuth = useSelector(isAuthenticated);
+  const [open, setOpen] = useState(false);
 
   const handleSearch = (e, value) => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("search", value);
     const query = searchParams.toString();
     navigate(`/?${query}`);
+    setOpen(false);
   };
-  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen((prev) => !prev);
@@ -57,6 +58,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     await dispatch(logoutUserAsync());
+    setOpen((prev) => !prev);
   };
 
   return (
@@ -99,7 +101,7 @@ const Header = () => {
                   InputProps={{
                     ...params.InputProps,
                     type: "search",
-                    sx: { py: 1 }, // Adjust padding to reduce height
+                    sx: { py: 1 }, 
                   }}
                   onKeyDown={(e) => handleSearch(e, params.inputProps.value)}
                   sx={{
@@ -165,9 +167,7 @@ const Header = () => {
             !open ? "hidden" : ""
           }`}
         >
-          {isAuth ? (
-            <div>
-              <Stack spacing={2}>
+        <Stack spacing={2}>
                 <Autocomplete
                   className="bg-white rounded-md"
                   freeSolo
@@ -185,6 +185,7 @@ const Header = () => {
                       onKeyDown={(e) =>
                         handleSearch(e, params.inputProps.value)
                       }
+                      
                     />
                   )}
                 />
@@ -194,8 +195,22 @@ const Header = () => {
                 <Box
                   component="section"
                   sx={{ p: 2,}}
+                  onClick={handleClickOpen}
                 >
                   <Home /> Home
+                </Box>
+              </Link>
+              <Divider />
+              
+          {isAuth ? (
+            <div>
+            <Link to={`/team`}>
+                <Box
+                  component="section"
+                  sx={{ p: 2,}}
+                  onClick={handleClickOpen}
+                >
+                  <PeopleAlt /> Team
                 </Box>
               </Link>
               <Divider />
@@ -203,6 +218,7 @@ const Header = () => {
                 <Box
                   component="section"
                   sx={{ p: 2,  }}
+                  onClick={handleClickOpen}
                 >
                   <LibraryBooks /> Action
                 </Box>
@@ -218,10 +234,13 @@ const Header = () => {
             </div>
           ) : (
             <Link to={`/login`}>
-              <Typography variant="h5" gutterBottom>
-                <Login />
-                Login
-              </Typography>
+            <Box
+                  component="section"
+                  sx={{ p: 2,  }}
+                  onClick={handleClickOpen}
+                >
+                  <Login /> Login
+                </Box>
             </Link>
           )}
         </Box>

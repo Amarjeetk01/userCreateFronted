@@ -3,6 +3,7 @@ const BASE_URL =  import.meta.env.VITE_REACT_API_URL;
 export function fetchTeamById(id) {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log("team id",id)
       const response = await fetch(`${BASE_URL}/api/team/${id}`, {
         method: "GET",
         credentials: 'include',
@@ -11,6 +12,7 @@ export function fetchTeamById(id) {
         throw new Error(`Failed to fetch team: ${response.status}`);
       }
       const data = await response.json();
+      console.log("team data",data)
       if (response.ok) {
         resolve({ data });
       } else {

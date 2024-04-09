@@ -161,12 +161,6 @@ const Profile = () => {
     }
   }, [user && userId]);
 
-  useEffect(() => {
-    const fetchAuth = async () => {
-      await dispatch(fetchAuthAsync());
-    };
-    fetchAuth();
-  }, []);
 
   return (
     <>
