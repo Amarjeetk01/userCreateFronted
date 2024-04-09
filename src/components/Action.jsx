@@ -24,6 +24,7 @@ import {
   userSliceError,
   usersStatus,
 } from "../features/users/userSlice";
+import { fetchAuthAsync } from "../auth/authSlice";
 const cloudName =  import.meta.env.VITE_REACT_CLOUD_NAME;
 const upload_preset =  import.meta.env.VITE_REACT_UPLOAD_PRESET;
 
@@ -159,6 +160,14 @@ const Profile = () => {
       });
     }
   }, [user && userId]);
+
+  useEffect(() => {
+    const fetchAuth = async () => {
+      await dispatch(fetchAuthAsync());
+      setLoading(false)
+    };
+    fetchAuth();
+  }, []);
 
   return (
     <>
