@@ -163,7 +163,7 @@ const Header = () => {
       </AppBar>
       {/* <ClickAwayListener onClickAway={()=>setOpen(false)}> */}
         <Box
-          className={`h-auto w-screen m-2 p-2 z-50 bg-white fixed ${
+          className={`h-auto w-full mr-2  p-2 z-50 bg-white fixed ${
             !open ? "hidden" : ""
           }`}
         >
