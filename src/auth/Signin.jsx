@@ -2,12 +2,12 @@ import { Button, Grid, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import {
   authError,
   authStatus,
-  getAuth,
   isAuthLoading,
+  isAuthenticated,
   loginUserAsync,
 } from "./authSlice";
 import toast, { Toaster } from "react-hot-toast";
@@ -19,12 +19,12 @@ const Signin = () => {
   const loading = useSelector(isAuthLoading);
   const status = useSelector(authStatus);
   const error = useSelector(authError);
-  const auth=useSelector(getAuth)
-  const [showToast,setToast]=useState(false)
+  const isAuth = useSelector(isAuthenticated);
+  const [showToast, setToast] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setToast(false)
+    setToast(false);
     const data = new FormData(event.currentTarget);
 
     const authData = {
@@ -32,18 +32,20 @@ const Signin = () => {
       password: data.get("password"),
     };
     await dispatch(loginUserAsync(authData));
-    setToast(true)
+    setToast(true);
   };
   useEffect(() => {
-    if (showToast && !loading && !auth && error) {
+    if (showToast && !loading && !isAuth && error) {
       toast.error(error);
-    } else if (auth && status==='success') {
+    }else if (isAuth && status && showToast) {
       toast.success(status);
       navigate(`/`);
+      
     }
-  }, [error, loading, status,auth,showToast]);
+  }, [error, loading, status, isAuth, showToast]);
   return (
     <div className="flex items-center justify-center h-screen w-full sm:px-0">
+      {isAuth && <Navigate to="/" replace={true}></Navigate>}
       <div className="flex bg-white rounded-lg shadow-lg border overflow-hidden max-w-sm lg:max-w-4xl w-full">
         <div
           className="hidden md:block lg:w-1/2 bg-contain bg-no-repeat bg-center bg-blue-700"
